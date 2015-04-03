@@ -1,3 +1,11 @@
 <h3>Trainer</h3>
 <p>Name: <%= @trainer.name if @trainer.name %></p>
 <p>Email: <%= @trainer.email if @trainer.email %></p>
+<p>Pokemon: <% Pokemon.where(trainer_id: @trainer).each do |pokemon| %>
+<%= pokemon.name %>, Level <%= pokemon.level %>, Health <%= pokemon.health %>
+<%= button_to "Damage", damage_path(id: pokemon, trainer: @trainer), :class => "button small", :method => :patch %><br>
+<% end %>
+</p>
+<% if @trainer == current_trainer %>
+<%= button_to "Create new Pokemon", new_pokemon_path, :class => "button small", :method => :get%><br>
+<% end %>
